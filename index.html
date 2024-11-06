@@ -20,6 +20,42 @@
             color: #333;
             margin: 1.5rem 0;
         }
+        .controls, .privacy-button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .search-bar, .sort-options {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: white;
+            color: #333;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            outline: none;
+            width: 220px;
+        }
+        .search-bar:focus, .sort-options:focus {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+        .privacy-button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #007aff;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
+        }
+        .privacy-button:hover {
+            background-color: #005bb5;
+        }
         .menu-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -59,24 +95,152 @@
             font-weight: 600;
             color: #333;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .close-button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            background-color: #005bb5;
+        }
     </style>
 </head>
 <body>
     <h1>StikTech - Games</h1>
-    <div class="menu-container">
-        <a href="game-player.html?game=papaspancakeria.swf" class="game-button">
+    <div class="controls">
+        <input type="text" class="search-bar" placeholder="Search games..." oninput="filterGames()">
+        <select class="sort-options" onchange="sortGames()">
+            <option value="alphabetical">Sort Alphabetically</option>
+            <option value="reverse">Sort Reverse Alphabetically</option>
+        </select>
+    </div>
+    <div class="privacy-button-container">
+        <button class="privacy-button" onclick="openModal()">Privacy Policy</button>
+        <button class="privacy-button" onclick="window.open('https://github.com/StikTech/StikTech-Games', '_blank')">GitHub</button>
+        <button class="privacy-button" onclick="window.open('https://discord.gg/a6qxs97Gun', '_blank')">Discord</button>
+    </div>
+
+    <div class="menu-container" id="gameList">
+        <a href="game-player.html?game=swf/papaspancakeria.swf" class="game-button">
             <div class="game-icon" style="background-image: url('images/papaspancakeria_100x100.jpg');"></div>
-            <div class="game-title">Papa's Pizzeria</div>
+            <div class="game-title">Papa's Pancakeria</div>
         </a>
-        <a href="game-player.html?game=papasburgeria.swf" class="game-button">
+        <a href="game-player.html?game=swf/papasburgeria.swf" class="game-button">
             <div class="game-icon" style="background-image: url('images/papasburgeria_100x100.jpg');"></div>
             <div class="game-title">Papa's Burgeria</div>
         </a>
-        <a href="game-player.html?game=papastacomia.swf" class="game-button">
+        <a href="game-player.html?game=swf/papastacomia.swf" class="game-button">
             <div class="game-icon" style="background-image: url('images/papastacomia_100x100.jpg');"></div>
             <div class="game-title">Papa's Taco Mia</div>
         </a>
-        <!-- Add more game buttons as needed -->
+        <a href="game-player.html?game=swf/papaswingeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papaswingeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Wingeria</div>
+        </a>
+        <a href="game-player.html?game=swf/papashotdoggeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papashotdoggeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Hot Doggeria</div>
+        </a>
+        <a href="game-player.html?game=swf/papasdonuteria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/donuteria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Donuteria</div>
+        </a>
+        <a href="game-player.html?game=swf/papascheeseria_102.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/cheeseria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Cheeseria</div>
+        </a>
+        <a href="game-player.html?game=swf/papaspastaria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papaspastaria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Pastaria</div>
+        </a>
+        <a href="game-player.html?game=swf/papasscooperia_v102.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/icon_100x100_papasscooperia.jpg');"></div>
+            <div class="game-title">Papa's Scooperia</div>
+        </a>
+        <a href="game-player.html?game=swf/papasbakeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/icon_100x100_papasbakeria.jpg');"></div>
+            <div class="game-title">Papa's Bakeria</div>
+        </a>
+        <a href="game-player.html?game=swf/papassushiria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/icon_100x100_papassushiria.jpg');"></div>
+            <div class="game-title">Papa's Sushiria</div>
+        </a>
+        <a href="game-player.html?game=swf/papascupcakeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papascupcakeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Cupcakeria</div>
+        </a>
+        <a href="game-player.html?game=swf/papasfreezeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papasfreezeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Freezeria</div>
+        </a>
+        <a href="game-player.html?game=swf/papaspizzeria_v2.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papaspizzeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Pizzeria</div>
+        </a>
     </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <p>We do not directly collect any data from users. This site is hosted on Github Pages and it uses the Cloudflare DNS. For more information, take a look at the source code on  <a href="https://github.com/StikTech/StikTech-Games" target="_blank" class="github-button">GitHub</a>.</p>
+            <button class="close-button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const games = Array.from(document.querySelectorAll('.game-button'));
+
+        function filterGames() {
+            const searchValue = document.querySelector('.search-bar').value.toLowerCase();
+            games.forEach(game => {
+                const title = game.querySelector('.game-title').textContent.toLowerCase();
+                game.style.display = title.includes(searchValue) ? 'block' : 'none';
+            });
+        }
+
+        function sortGames() {
+            const sortValue = document.querySelector('.sort-options').value;
+            const sortedGames = [...games];
+            if (sortValue === 'alphabetical') {
+                sortedGames.sort((a, b) => a.querySelector('.game-title').textContent.localeCompare(b.querySelector('.game-title').textContent));
+            } else if (sortValue === 'reverse') {
+                sortedGames.sort((a, b) => b.querySelector('.game-title').textContent.localeCompare(a.querySelector('.game-title').textContent));
+            }
+            const gameList = document.getElementById('gameList');
+            gameList.innerHTML = '';
+            sortedGames.forEach(game => gameList.appendChild(game));
+        }
+
+        function openModal() {
+            document.getElementById('privacyModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('privacyModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
