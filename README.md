@@ -1,4 +1,4 @@
-# A Fun Open Source Games Website
+# StikTech - Games: A Fun Open Source Games Website
 
 ## Credits
 - nes-js for the base nes emulator code. The original code can be found [here](https://github.com/takahirox/nes-js) under the MIT license.
