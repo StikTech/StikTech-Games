@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StikTech - Games</title>
+    <style>
+        /* Apple-like Design */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #333;
+            margin: 1.5rem 0;
+        }
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .game-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            color: #007aff;
+        }
+        .game-button:hover {
+            transform: scale(1.05);
+            background-color: #f0f0f5;
+        }
+        .game-icon {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .game-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>StikTech - Games</h1>
+    <div class="menu-container">
+        <a href="game-player.html?game=papaspancakeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papaspancakeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Pizzeria</div>
+        </a>
+        <a href="game-player.html?game=papasburgeria.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papasburgeria_100x100.jpg');"></div>
+            <div class="game-title">Papa's Burgeria</div>
+        </a>
+        <a href="game-player.html?game=papastacomia.swf" class="game-button">
+            <div class="game-icon" style="background-image: url('images/papastacomia_100x100.jpg');"></div>
+            <div class="game-title">Papa's Taco Mia</div>
+        </a>
+        <!-- Add more game buttons as needed -->
+    </div>
+</body>
+</html>
